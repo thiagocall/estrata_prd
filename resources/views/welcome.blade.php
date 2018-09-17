@@ -87,7 +87,7 @@
                     <a href="https://powerbi.microsoft.com/pt-br//" target="_blank"">Power BI</a>
                     <a href="#">News</a>
                     <a href="#">Forge</a>
-                    <a href="#">GitHub</a>
+                    <a href="https://github.com/thiagocall/estrata_prd">GitHub</a>
                 </div>
             </div>
         </div>

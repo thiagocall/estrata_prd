@@ -14,17 +14,18 @@
 
     	$(function(){
         $('#atuacao').change(function(){
-    			var id_atuacao =  $('#atuacao').val();
+    			var id_atuacao = $('#atuacao').val();
     					$.ajax({
 						  type: "POST",
 						  url: "{{url('getIES')}}",
 						  data: {id_atuacao: id_atuacao},
               //dataType:'text',
 						  success: function(data){
-
-    					//console.log();
-              $('#ies').html(data);
-              $('#ies').removeAttr('disabled')
+    					//console.log(data['usa_campus']);
+              $('#ies').html(data['options']);
+              $('#ies').removeAttr('disabled');
+              $('#corpo_1').html(data['corpo_1']);
+              $('#corpo_2').html(data['corpo_2'])
                 }       
 
 						});

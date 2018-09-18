@@ -28,29 +28,22 @@
         @endforeach
       </select>
   </div>
+
   <div class="col-md-6">
     <label for="ies"><strong>Ies:</strong></label>
       <select class="form-control" id="ies" disabled="">
-       <option  selected value> Selecione uma Atuação </option>
       </select>
   </div>
-
   </div>
 
    <div class="form-group row">
-  <div class="col-md-3">
-      <label for="campus"><strong>Campus:</strong></label>
-      <select class="form-control" id="campus" disabled="" required="true">
-       <option  selected value > Selecione uma IES </option>
    
-      </select>
+  <div class="col-md-3" id="corpo_1">
+      
   </div>
-  <div class="col-md-6">
-    <label for="curso"><strong>Curso:</strong></label>
-      <select class="form-control" id="curso" disabled="">
-       <option  selected value> Selecione um Campus </option>
-
-      </select>
+  
+  <div class="col-md-6" id="corpo_2">
+    
   </div>
 
 

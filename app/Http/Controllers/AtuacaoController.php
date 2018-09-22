@@ -34,10 +34,10 @@ public function getIES(Request $request){
 
 		$nom_ies = AtuacaoController::getIesById($id_atuacao);
 
-		//$regra = AtuacaoController::getRegraAtuacao($id_atuacao);
+		$regra = AtuacaoController::getRegraAtuacao($id_atuacao);
 
 		$total = $nom_ies->count();
-		
+
 
 		$options = "<option selected value desable> Selecione uma IES ({$total}) </option>";
 
@@ -52,18 +52,38 @@ public function getIES(Request $request){
 		}
 
 
-		/*$USA_CAMPUS = $regra->USA_CAMPUS;
-		$USA_CURSO = $regra->USA_CURSO;
-		$USA_TIPO_CURSO = $regra->USA_TIPO_CURSO;
-		*/
+		$this->USA_CAMPUS = $regra[0]['usa_campus'];
+		$this->USA_CURSO = $regra[0]['usa_curso'];
+		$this->USA_TIPO_CURSO = $regra[0]['usa_tipo_curso'];
+
+		$corpo1 = '<label for="campus"><strong>Campus:</strong></label>'
+      $corpo1 .= '<select class="form-control" id="campus" disabled="" required="true">'
+       $c'<option  selected value > Selecione uma IES </option>'.
+      '</select>';
+
+      $corpo2 = '<label for="curso"><strong>Curso:</strong></label>' .
+      '<select class="form-control" id="curso" disabled="">' .
+       '<option  selected value> Selecione um Campus </option>' .
+      '</select>';
 
 
+		switch (true) {
+			case $this->USA_CAMPUS == 'S':
+				# code...
+				$corpo_1 = $corpo1;
 
-		//$Response = ['options' => $options, 'regra' => $regra];
+			case $this->USA_CURSO == 'S':
 
-		//return ['options' => $options, 'regra' => $regra];
+				$corpo_2 = $corpo2;
 
-		return $options;
+			default:
+				# code...
+				break;
+		}
+
+
+		
+		return  ['options' => $options, 'corpo_1' => $corpo_1, 'corpo_2' => $corpo_2];
 	
 	}
 
@@ -215,10 +235,10 @@ public function getIES(Request $request){
 }
 
 
-	public function getRegraAtuacao($id){
+	public function getRegraAtuacao($atuacao){
 
-			$regra  = regra_atuacao::select('USA_CAMPUS', 'USA_CURSO', 'USA_TIPO_CURSO')
-								->where('COD_TIPO_ATUACAO', $id)
+			$regra = regra_atuacao::select('usa_campus', 'usa_curso', 'usa_tipo_curso')
+								->where('cod_tipo_atuacao','=', (string)$atuacao)
 								->get(); 
 
 		return $regra;

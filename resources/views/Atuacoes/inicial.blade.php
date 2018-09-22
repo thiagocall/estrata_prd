@@ -16,7 +16,7 @@
 <br>
 <br>
 
-<form action="#" method="POST" >
+<form action="#" mezthod="POST" >
  @csrf
  <div class="form-group row">
   <div class="col-md-6">

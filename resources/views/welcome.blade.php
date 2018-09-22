@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Estratégia Acadêmica
+                    Estratégia Acadêmica Git
                 </div>  
 
                 <div class="links">

@@ -32,6 +32,8 @@ Route::get('mostrar/{id}','ProfessoresController@mostrar');
 
 Route::get('atuacao', 'AtuacaoController@inicial');
 
+Route::get('atuacao_', 'AtuacaoController@inicial_');
+
 Route::post('getIES','AtuacaoController@getIES');
 
 Route::post('getCampus','AtuacaoController@getCampus');

@@ -16,6 +16,7 @@ class AtuacaoController extends Controller
     public $USA_TIPO_CURSO = "";
 
 
+
 	public function inicial() {
 
 		$atuacoes = Atuacao::select('cod_tipo_atuacao', 'nom_tipo_atuacao')
@@ -28,62 +29,66 @@ class AtuacaoController extends Controller
 	}
 
 
-public function getIES(Request $request){
 
-		$id_atuacao = $request->post('id_atuacao');
+	public function inicial_() {
 
-		$nom_ies = AtuacaoController::getIesById($id_atuacao);
+		$atuacoes = Atuacao::select('cod_tipo_atuacao', 'nom_tipo_atuacao')
+							->distinct()
+							->orderby('nom_tipo_atuacao')
+							->get();
 
-		$regra = AtuacaoController::getRegraAtuacao($id_atuacao);
+		return view('Atuacoes/atuacao_', ['atuacoes' => $atuacoes]);
 
-		$total = $nom_ies->count();
-
-
-		$options = "<option selected value desable> Selecione uma IES ({$total}) </option>";
+	}
 
 
-/*
-		return response()->json($response); 
-*/		
+	public function getIES(Request $request){
 
-		foreach ($nom_ies as $n) {
+			$id_atuacao = $request->post('id_atuacao');
+
+			$nom_ies = AtuacaoController::getIesById($id_atuacao);
+
+			$regra = AtuacaoController::getRegraAtuacao($id_atuacao);
+
+			$total = $nom_ies->count();
+
+
+			$options = "<option selected value desable> Selecione uma IES ({$total}) </option>";
+
+
+	/*
+			return response()->json($response); 
+	*/		
+
+			foreach ($nom_ies as $n) {
+				
+				$options .= "<option value='{$n->cod_instituicao}'>$n->nom_instituicao</option>" . PHP_EOL;
+			}
+
+
+			$this->USA_CAMPUS = $regra[0]['usa_campus'];
+			$this->USA_CURSO = $regra[0]['usa_curso'];
+			$this->USA_TIPO_CURSO = $regra[0]['usa_tipo_curso'];
+
+			$corpo1 = '<label for="campus"><strong>Campus:</strong></label>';
+	      	$corpo1 .= '<select class="form-control" id="campus" disabled="" required="true">';
+	       	$corpo1 .= '<option  selected value > Selecione uma IES </option> </select>';
+
+		    $corpo2 = '<label for="curso"><strong>Curso:</strong></label>' ;
+		    $corpo2 .=  '<select class="form-control" id="curso" disabled="">';
+		    $corpo2 .=   '<option  selected value> Selecione um Campus </option>' ;
+		    $corpo2 .=  '</select>';
+
+
+			($this->USA_CAMPUS == 'S') ? $corpo_1 = $corpo1 : $corpo_1 = '';
+
+			($this->USA_CURSO == 'S') ? $corpo_2 = $corpo2 : $corpo_2 = '';
+
+
 			
-			$options .= "<option value='{$n->cod_instituicao}'>$n->nom_instituicao</option>" . PHP_EOL;
-		}
+			//return  ['options' => $options, 'corpo_1' => $corpo_1, 'corpo_2' => $corpo_2];
 
-
-		$this->USA_CAMPUS = $regra[0]['usa_campus'];
-		$this->USA_CURSO = $regra[0]['usa_curso'];
-		$this->USA_TIPO_CURSO = $regra[0]['usa_tipo_curso'];
-
-		$corpo1 = '<label for="campus"><strong>Campus:</strong></label>'
-      $corpo1 .= '<select class="form-control" id="campus" disabled="" required="true">'
-       $c'<option  selected value > Selecione uma IES </option>'.
-      '</select>';
-
-      $corpo2 = '<label for="curso"><strong>Curso:</strong></label>' .
-      '<select class="form-control" id="curso" disabled="">' .
-       '<option  selected value> Selecione um Campus </option>' .
-      '</select>';
-
-
-		switch (true) {
-			case $this->USA_CAMPUS == 'S':
-				# code...
-				$corpo_1 = $corpo1;
-
-			case $this->USA_CURSO == 'S':
-
-				$corpo_2 = $corpo2;
-
-			default:
-				# code...
-				break;
-		}
-
-
-		
-		return  ['options' => $options, 'corpo_1' => $corpo_1, 'corpo_2' => $corpo_2];
+			return  ['options' => $options, 'regra' => $regra, 'corpo_1' => $corpo_1, 'corpo_2' => $corpo_2];
 	
 	}
 

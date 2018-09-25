@@ -21,7 +21,8 @@
 						  data: {id_atuacao: id_atuacao},
               //dataType:'text',
 						  success: function(data){
-    					//console.log(data['usa_campus']);
+                var data1 = data['regra'];
+    					console.log(data1[0]);
               $('#ies').html(data['options']);
               $('#ies').removeAttr('disabled');
               $('#corpo_1').html(data['corpo_1']);
@@ -42,30 +43,29 @@
                           data: {id_ies: id_ies},
                         //dataType:'text',
                           success: function(data){
-                        //console.log(data)}
+                        //console.log(data);
                         $('#campus').html(data);
                         $('#campus').removeAttr('disabled')
-                           } 
+                        $('#campus').change(function(){
+                            var id_curso =  $('#campus').val();
+                            $.ajax({
+                              type: "POST",
+                              url: "{{url('getCurso')}}",
+                              data: {id_curso: id_curso},
+                            //dataType:'text',
+                              success: function(data){
+                            console.log(data);
+                            $('#curso').html(data);
+                            $('#curso').removeAttr('disabled')
+                               } 
+                            });
+                        
+                    });
 
 
-                        });
-                    
-                });
+                               } 
 
-         /////////////////////*****************************
 
-         $('#campus').change(function(){
-                var id_curso =  $('#campus').val();
-                        $.ajax({
-                          type: "POST",
-                          url: "{{url('getCurso')}}",
-                          data: {id_curso: id_curso},
-                        //dataType:'text',
-                          success: function(data){
-                        //console.log(data)}
-                        $('#curso').html(data);
-                        $('#curso').removeAttr('disabled')
-                           } 
                         });
                     
                 });

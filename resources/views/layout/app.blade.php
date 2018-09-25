@@ -19,6 +19,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="/atuacao">Atuações</a>
       </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="/atuacao_">Atuações2</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Regime de Trabalho</a>
       </li>

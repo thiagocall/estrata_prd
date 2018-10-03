@@ -1,20 +1,13 @@
-  @extends('layout.app')
+@extends('layout.app')
 @section('title','Atuação Fixa')
 @section('content')
 <br>
-<div class="container">
-
-<h2>Lançamento de Atuação Fixa</h2>
-
-<!--
-<div class="jumbotron" style="margin-top: 20px">
-
+<div class="container text-center mb-1">
+  <h3>Lançamento de Atuação Fixa</h3>
+  <hr>
 </div>
 
--->
-
-<br>
-<br>
+<div class="container">
 
 <form action="#" mezthod="POST" >
  @csrf
@@ -49,8 +42,8 @@
 
   </div>
 
-    
- </div>
+  </div> 
+
 
  <div class="form-group">
   <div class="col-md-6">
@@ -72,8 +65,8 @@
  <select multiple class="form-control" id="prof">
 
   </select>
-</div>
-</div>
+  </div>
+  </div>
 
 
 <div class="form-group">
@@ -86,6 +79,7 @@
     </div>
   </div>
 </div>
+
 
 </form>
 

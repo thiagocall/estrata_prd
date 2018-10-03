@@ -11,7 +11,6 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
     	$(function(){
         $('#atuacao').change(function(){
     			var id_atuacao = $('#atuacao').val();

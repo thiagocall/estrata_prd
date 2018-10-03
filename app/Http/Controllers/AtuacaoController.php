@@ -10,11 +10,9 @@ use App\regra_atuacao;
 class AtuacaoController extends Controller
 {
 
-
     public $USA_CAMPUS = "";
     public $USA_CURSO = "";
     public $USA_TIPO_CURSO = "";
-
 
 
 	public function inicial() {
@@ -29,7 +27,7 @@ class AtuacaoController extends Controller
 	}
 
 
-
+	///////////Segunda tela de atuação
 	public function inicial_() {
 
 		$atuacoes = Atuacao::select('cod_tipo_atuacao', 'nom_tipo_atuacao')
@@ -40,6 +38,8 @@ class AtuacaoController extends Controller
 		return view('Atuacoes/atuacao_', ['atuacoes' => $atuacoes]);
 
 	}
+
+	//////////*****************
 
 
 	public function getIES(Request $request){
@@ -54,11 +54,7 @@ class AtuacaoController extends Controller
 
 
 			$options = "<option selected value desable> Selecione uma IES ({$total}) </option>";
-
-
-	/*
-			return response()->json($response); 
-	*/		
+		
 
 			foreach ($nom_ies as $n) {
 				
@@ -103,7 +99,7 @@ class AtuacaoController extends Controller
 
 		return  $atuacoes;
 
-}
+	}
 
 
 
@@ -116,32 +112,7 @@ class AtuacaoController extends Controller
 
 		$options = "<option selected value desable> Selecione um Campus </option>";
 
-/*
-		return response()->json($response); 
-*/		
 
-		/*
-		if($USA_CAMPUS == "S") {
-
-
-
-		foreach ($nom_campus as $n) {
-			
-			$options .= "<option value='{$n->cod_campus}'>$n->nom_campus</option>" . PHP_EOL;
-		}
-
-		return $options;
-	}
-
-	else {
-
-		$options = "<option selected value desable> Atuação não pede campus </option>";
-
-		return $options;
-
-
-	}
-	*/
 			foreach ($nom_campus as $n) {
 			
 				$options .= "<option value='{$n->cod_campus}'>$n->nom_campus</option>" . PHP_EOL;
@@ -163,7 +134,7 @@ class AtuacaoController extends Controller
 
 			return  $campi;
 
-}
+	}
 
 	public function getCurso(Request $request){
 
@@ -173,11 +144,7 @@ class AtuacaoController extends Controller
 		
 
 		$options = "<option selected value desable> Selecione um Curso </option>";
-
-
-/*
-		return response()->json($response); 
-*/		
+	
 
 		foreach ($nom_curso as $n) {
 			
@@ -199,7 +166,7 @@ class AtuacaoController extends Controller
 
 			return  $Cursos;
 
-}
+	}
 
 	public function getTurno(Request $request){
 
@@ -237,7 +204,7 @@ class AtuacaoController extends Controller
 
 			return  $Turnos;
 
-}
+	}
 
 
 	public function getRegraAtuacao($atuacao){

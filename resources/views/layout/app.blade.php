@@ -10,9 +10,9 @@
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
-          <a class="dropdown-item" href="#">Professores por IES</a>
-          <a class="dropdown-item" href="#">Financeiro</a>
-          <a class="dropdown-item" href="#">Fora de Sede</a>
+          <a class="dropdown-item" href="/busca">Professores por IES <span class="badge badge-primary">Novo</span></a>
+          <a class="dropdown-item" href="#">Financeiro<span class="badge badge-primary">Novo</span></a>
+          <a class="dropdown-item" href="#">Fora de Sede<span class="badge badge-primary">Novo</span></a>
           <a class="dropdown-item" href="#">EAD</a>
           <a class="dropdown-item" href="#">Visita</a>
           <a class="dropdown-item" href="#">Enade</a>

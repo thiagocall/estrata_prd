@@ -4,6 +4,7 @@ use App\Professores;
 use Illuminate\Support\Facades\DB;
 use App\http\ProfessoresController;
 use App\http\AtuacaoController;
+use App\http\RelatorioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,5 @@ Route::post('getCampus','AtuacaoController@getCampus');
 Route::post('getCurso','AtuacaoController@getCurso');
 
 Route::post('getTurno','AtuacaoController@getTurno');
+
+Route::get('/busca','RelatorioController@Busca');

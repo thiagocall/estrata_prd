@@ -8,9 +8,9 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alunos</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
-          <a class="dropdown-item" href="/atuacao_">Desempenho</a>
+          <a class="dropdown-item" href="#">Professores por IES</a>
           <a class="dropdown-item" href="#">Financeiro</a>
           <a class="dropdown-item" href="#">Fora de Sede</a>
           <a class="dropdown-item" href="#">EAD</a>
@@ -22,7 +22,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Corpo Docente</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
-          <a class="dropdown-item" href="/atuacao_">Censo</a>
+          <a class="dropdown-item" href="#">Censo</a>
           <a class="dropdown-item" href="#">IES</a>
           <a class="dropdown-item" href="#">Fora de Sede</a>
           <a class="dropdown-item" href="#">EAD</a>
@@ -33,7 +33,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfessores" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Professores</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownProfessores" >
-          <a class="dropdown-item" href="/atuacao_">Informações</a>
+          <a class="dropdown-item" href="#">Informações</a>
           <a class="dropdown-item" href="#">Regime</a>
           <a class="dropdown-item" href="#">Titulação</a>
           <a class="dropdown-item" href="#">Carga Horária</a>

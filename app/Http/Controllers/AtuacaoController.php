@@ -17,9 +17,9 @@ class AtuacaoController extends Controller
 
 	public function inicial() {
 
-		$atuacoes = Atuacao::select('cod_tipo_atuacao', 'nom_tipo_atuacao')
+		$atuacoes = Atuacao::select('COD_TIPO_ATUACAO', 'NOM_TIPO_ATUACAO')
 							->distinct()
-							->orderby('nom_tipo_atuacao')
+							->orderby('NOM_TIPO_ATUACAO')
 							->get();
 
 		return view('Atuacoes/inicial', ['atuacoes' => $atuacoes]);
@@ -30,12 +30,13 @@ class AtuacaoController extends Controller
 	///////////Segunda tela de atuação
 	public function inicial_() {
 
-		$atuacoes = Atuacao::select('cod_tipo_atuacao', 'nom_tipo_atuacao')
+		$atuacoes = Atuacao::select('COD_TIPO_ATUACAO', 'NOM_TIPO_ATUACAO')
 							->distinct()
-							->orderby('nom_tipo_atuacao')
+							->orderby('NOM_TIPO_ATUACAO')
 							->get();
 
 		return view('Atuacoes/atuacao_', ['atuacoes' => $atuacoes]);
+		//return $atuacoes;
 
 	}
 

@@ -17,7 +17,7 @@
       <select class="form-control" id="atuacao">
        <option  selected value> Selecione uma Atuação </option>
         @foreach($atuacoes as $a)
-        <option value="{{$a->cod_tipo_atuacao}}">{{$a->nom_tipo_atuacao}}</option>{{PHP_EOL}}
+        <option value="{{$a->COD_TIPO_ATUACAO}}">{{$a->NOM_TIPO_ATUACAO}}</option>{{PHP_EOL}}
         @endforeach
       </select>
   </div>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Professor_IES extends Model
 {
     
-    protected $table = 'professor_ies';
+    protected $table = 'TbPROFESSOR_IES';
 
     public $timestamps=false;
 }

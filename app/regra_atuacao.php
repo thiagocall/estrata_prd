@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class regra_atuacao extends Model
 {
     
-	protected $table = 'regra_atuacao';
+	protected $table = 'TbREGRA_ATUACAO';
 
 	public $timestamps = false;
 

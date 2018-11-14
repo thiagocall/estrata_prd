@@ -1,14 +1,34 @@
 <?php
 
+//include 'Calculos.Otimizacao.php';
+
 namespace App\Http\Controllers;
 
+use App\Calculos;
 use Illuminate\Http\Request;
 use App\Atuacao;
 use App\Campus_Curso;
 use App\regra_atuacao;
 
+
 class AtuacaoController extends Controller
 {
+
+
+	/*
+
+	Adiciona middleware->auth direto na Controller
+	public function __construct()
+    {
+        // Nesse caso o middleware auth será aplicado a todos os métodos
+        $this->middleware('auth');
+
+        // mas, você pode fazer uso dos métodos fluentes: only e except
+        // ex.: $this->middleware('auth')->only(['create', 'store']);
+        // ex.: $this->middleware('auth')->except('index');
+    }
+    */
+
 
     public $USA_CAMPUS = "";
     public $USA_CURSO = "";
@@ -125,7 +145,7 @@ class AtuacaoController extends Controller
 	}
 
 
-	public function getCampusById($nCamp = null) {
+	public function getCampusById($nCamp = null, $nome, $cod) {
 
 			$campi = Atuacao::select('cod_campus', 'nom_campus')
 								->distinct()
@@ -143,7 +163,6 @@ class AtuacaoController extends Controller
 
 		$nom_curso = AtuacaoController::getCursosById($id_curso);
 		
-
 		$options = "<option selected value desable> Selecione um Curso </option>";
 	
 

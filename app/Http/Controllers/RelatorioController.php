@@ -9,7 +9,6 @@ use App\Regional;
 
 class RelatorioController extends Controller
 {
-    
 	//Relatório Professores P1
 
 
@@ -32,7 +31,7 @@ class RelatorioController extends Controller
 
 
 
-		return view('Relatorios.busca', ['regional' => $regional , 'ies' => $ies]);
+		return view('Relatorios.busca', ['regional' => $regional , 'ies' => $ies, 'teste' => false]); //Teste de variável para altereção de classe no menu dropdown
 		//return ($regional);
 
 

@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('inicial',function (){
 
-    return view('Professores.index', ['title' => 'Professores']);
+    return view('Professores.index', ['title' => 'Professores', 'teste' => true]);
 
 });
 
@@ -33,7 +33,7 @@ Route::get('mostrar/{id}','ProfessoresController@mostrar');
 
 Route::get('atuacao', 'AtuacaoController@inicial');
 
-Route::get('atuacao_', 'AtuacaoController@inicial_');
+Route::get('atuacao_', 'AtuacaoController@inicial_')->middleware('auth');
 
 Route::post('getIES','AtuacaoController@getIES');
 
@@ -43,4 +43,8 @@ Route::post('getCurso','AtuacaoController@getCurso');
 
 Route::post('getTurno','AtuacaoController@getTurno');
 
-Route::get('/busca','RelatorioController@Busca');
+Route::get('/busca','RelatorioController@Busca')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

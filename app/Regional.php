@@ -8,5 +8,5 @@ class Regional extends Model
 {
       protected $table = 'TbSia_REGIONAL';
 
-    public $timestamps=false;
+      public $timestamps=false;
 }

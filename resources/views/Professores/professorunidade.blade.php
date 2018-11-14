@@ -10,7 +10,6 @@
 
 <a href="{{url('/inicial')}}">Voltar</a>
 
-{{ $professores->links() }}
 
 <ul class="list-group">
 @foreach($professores as $p)
@@ -21,8 +20,6 @@
 
 </ul>
 
-
-{{ $professores->links() }}
 
 
 </div>

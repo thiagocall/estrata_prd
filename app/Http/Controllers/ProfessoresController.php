@@ -8,6 +8,8 @@ use App\Professores;
 class ProfessoresController extends Controller
 {
 
+   
+
 
 	public function mask($val, $mask){
 
@@ -47,10 +49,9 @@ class ProfessoresController extends Controller
 
     public function inicial (){
 
-    	$professores = Professores::Paginate(15);
+    	$professores = Professores::paginate(20);
 
     return view('Professores.listaprofessor', ['title' => 'Professores', 'professores' => $professores]);
-
 
     }
 

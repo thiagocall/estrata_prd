@@ -27,6 +27,7 @@ Route::get('inicial',function (){
 
 });
 
+
 Route::get('listaprofessor','ProfessoresController@inicial');
 
 Route::get('mostrar/{id}','ProfessoresController@mostrar');
@@ -36,6 +37,12 @@ Route::get('atuacao', 'AtuacaoController@inicial');
 Route::get('atuacao_', 'AtuacaoController@inicial_')->middleware('auth');
 
 Route::post('getIES','AtuacaoController@getIES');
+
+Route::post('getIES_Reg','ProfessoresController@getIES_Reg');
+
+Route::post('getCampus_IES','ProfessoresController@getCampus_IES');
+
+Route::post('lista_professor','ProfessoresController@lista_professor');
 
 Route::post('getCampus','AtuacaoController@getCampus');
 

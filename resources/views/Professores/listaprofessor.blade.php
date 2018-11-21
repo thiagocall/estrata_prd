@@ -7,7 +7,7 @@
 <h2>Lista de Professores</h2>
 
 </div>
-{{$professores->links()}}
+
 <div class="container">
 <table class="table" id="tb_professor">
   <thead>
@@ -22,20 +22,26 @@
     @foreach($professores as $p)
     <tr>
     	
-      <td>{{$p->NOME}}</td>
-      <td>{{$p->CPF}}</td>
-      <td>{{$p->UF_NASC}}</td>
-      <td><a class="btn btn-outline-secondary" href="{{url('mostrar/'.$p->ID)}}">Ver</a></td>
+      <td >{{$p->NOME}}</td>
+      <td >{{$p->CPF}}</td>
+      <td >{{$p->UF_NASC}}</td>
+      <td> <a class="fa fa-id-badge" style="color:#273746" href="{{url('mostrar/'.$p->ID)}}"></a></td>
 
     </tr>
     @endforeach
   </tbody>
 </table>
 
+<div class="container">
+<div class="row">
+<div class="col-md-9">
 {{$professores->links()}}
-
 </div>
-<a role="button" class="btn btn-primary" href="{{url('/inicial')}}">Voltar</a>
+<div class="col-md-3">
+ <a role="button" class="btn btn-primary float-right" href="{{url('/inicial')}}">Voltar</a>
+</div>
+</div>
+</div>
 </div>  
 
 

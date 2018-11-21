@@ -9,6 +9,7 @@
 
 <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
 
+</body>
 
 <script type="text/javascript">
     
@@ -19,15 +20,13 @@
 });
     	$(function(){
         $('#atuacao').change(function(){
-    			var id_atuacao = $('#atuacao').val();
+    			var id_regional = $('#atuacao').val();
     					$.ajax({
 						  type: "POST",
 						  url: "{{url('getIES')}}",
-						  data: {id_atuacao: id_atuacao},
+						  data: {id_regional: id_regional},
               //dataType:'text',
 						  success: function(data){
-                var data1 = data['regra'];
-    					console.log(data1[0]);
               $('#ies').html(data['options']);
               $('#ies').removeAttr('disabled');
               $('#corpo_1').html(data['corpo_1']);
@@ -59,7 +58,6 @@
                               data: {id_curso: id_curso},
                             //dataType:'text',
                               success: function(data){
-                            console.log(data);
                             $('#curso').html(data);
                             $('#curso').removeAttr('disabled')
                                } 
@@ -87,19 +85,74 @@
                                  id_campus: id_campus},
                         //dataType:'text',
                           success: function(data){
-                        //console.log(data)}
                         $('#turno').html(data);
                         $('#turno').removeAttr('disabled')}
                         });
-                    
                 });
-
     });
-      
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+
+
+      //////////////////////****************************************
+
+$(function(){
+        $('#regional').change(function(){
+          var id_regional = $('#regional').val();
+              $.ajax({
+              type: "POST",
+              url: "{{url('getIES_Reg')}}",
+              data: {id_regional: id_regional},
+              //dataType:'text',
+              success: function(data){
+              $('#ies_').html(data['options']);
+                }       
+
+                  });
+                    
+          })});
+
+
+$(function(){
+        $('#ies_').change(function(){
+          var id_ies = $('#ies_').val();
+              $.ajax({
+              type: "POST",
+              url: "{{url('getCampus_IES')}}",
+              data: {id_ies: id_ies},
+              //dataType:'text',
+              success: function(data){
+              $('#campus_').html(data['options']);
+                }       
+
+                  });
+                    
+          })});
+
+
+$(function(){
+        $('#btn_buscar').click(function(){
+          var id_campus = $('#campus_').val();
+              $.ajax({
+              type: "POST",
+              url: "{{url('lista_professor')}}",
+              data: {id_campus: id_campus},
+              success: function(data){
+              $('#lista').html(data['campus']);
+                }       
+                  });
+                    
+          })});
+
+
+$(function(){
+        $('#btn_voltar').click(function(){
+
+            window.history.back(0);
+          })});
+
+
+     ////////////////////////****************************************
 
     </script>
-</body>
+  </body>
+
 </html>

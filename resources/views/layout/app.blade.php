@@ -96,24 +96,7 @@
   </div>
 </nav>
 
-
-
-<style type="text/css">
-  /*
-  #a_{
-
-    display:none;
-
-*/
-  }
-
-
-
-</style>
-
-
-<div class="container">
  @yield('content')
+ 
 </div>
-
 @include('layout.foot')

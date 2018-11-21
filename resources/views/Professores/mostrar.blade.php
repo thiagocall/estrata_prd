@@ -103,7 +103,7 @@
 
 		
 
-<a  class="btn btn-outline-primary" href="{{url('/listaprofessor')}}">Voltar</a>
+<button class="btn btn-outline-primary" id="btn_voltar" ">Voltar </button>
 </div>
 
 

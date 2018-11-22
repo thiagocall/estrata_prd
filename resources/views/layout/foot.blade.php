@@ -103,52 +103,51 @@ $(function(){
               data: {id_regional: id_regional},
               //dataType:'text',
               success: function(data){
-              $('#ies_').html(data['options']);
-                }       
+              $('#ies').html(data['options']);
+                } 
 
-                  });
-                    
+                  });     
+
           })});
 
-
 $(function(){
-        $('#ies_').change(function(){
-          var id_ies = $('#ies_').val();
+        $('#ies').change(function(){
+          var id_ies = $('#ies').val();
               $.ajax({
               type: "POST",
               url: "{{url('getCampus_IES')}}",
               data: {id_ies: id_ies},
               //dataType:'text',
               success: function(data){
-              $('#campus_').html(data['options']);
+              $('#campus').html(data['options']);
                 }       
 
                   });
                     
           })});
 
-
-$(function(){
+//********************** Busca lista de professores
+$(function(){ 
         $('#btn_buscar').click(function(){
-          var id_campus = $('#campus_').val();
+          var id_campus = $('#campus').val();
+          var cpf_ = $('#cpf').val();
+          $('#lista').html("<div class='container text-center' style='margin-top:15%'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=5% > processando...</div>")
               $.ajax({
               type: "POST",
               url: "{{url('lista_professor')}}",
-              data: {id_campus: id_campus},
+              data: {id_campus: id_campus, cpf: cpf_},
               success: function(data){
               $('#lista').html(data['campus']);
                 }       
-                  });
-                    
+                  });      
           })});
 
 
 $(function(){
         $('#btn_voltar').click(function(){
-
-            window.history.back(0);
+          history.back();
+           $('#btn_buscar').change();
           })});
-
 
      ////////////////////////****************************************
 

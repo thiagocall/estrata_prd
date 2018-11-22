@@ -106,38 +106,39 @@ class ProfessoresController extends Controller
 
     public function lista_professor(Request $request){
 
-            $id_campus = $request->post('id_campus');
 
+           $id_campus = $request->post('id_campus');
+           $cpf = $request->post('cpf');
+
+     
             $campus = Professor_Curso::select('CPF_PROFESSOR')
-                      ->where('COD_CAMPUS', '=', 303)
+                      ->where('COD_CAMPUS', '=', $id_campus)
+                      ->orwhere('CPF_PROFESSOR', '=', $cpf)
                       ->distinct('CPF_PROFESSOR')
                       ->get();
 
             $total = $campus->count();
 
-
                 $corpo = "";
 
                 foreach($campus as $p)
-                {
-                    
+                { 
                     $corpo .= "<tr>" . PHP_EOL; 
                     $corpo .= "<td>{$p->Professor->NOME}</td>" . PHP_EOL;
                     $corpo .= "<td>{$p->CPF_PROFESSOR}</td>" . PHP_EOL;
                     $corpo .= "<td>{$p->Info->Titulacao_Considerada}</td>" . PHP_EOL;
-                    $corpo .= "<td><a class='fa fa-id-badge' style='color:#273746' ";
+                    $corpo .= "<td><a class='fas fa-id-card' style='color:#273746' role='span'";
                     $corpo .= "href=" . url("mostrar/". $p->Professor->ID);
                     $corpo .= " </a></td>" . PHP_EOL;
                     $corpo .= "</tr>" . PHP_EOL; 
+                }
 
-                    //$corpo = $p->Professor->NOME;
-                } 
-            
-            //return  ['options' => $options, 'corpo_1' => $corpo_1, 'corpo_2' => $corpo_2];
-            
+                if ($total == 0)
+                     $corpo = "Não há professores para essa pesquisa.";
 
-            return ['campus' => $corpo];
+                 return ['campus' => $corpo];
+
             }
-         
+
 
 }

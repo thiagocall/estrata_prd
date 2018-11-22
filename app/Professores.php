@@ -24,6 +24,5 @@ class Professores extends Model
     }
 
 
-
 }
 

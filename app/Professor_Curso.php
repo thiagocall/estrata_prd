@@ -12,8 +12,7 @@ class Professor_Curso extends Model
 
     public function Professor(){
 
-
-	return $this->hasOne('App\Professores', 'CPF', 'CPF_PROFESSOR');
+		return $this->hasOne('App\Professores', 'CPF', 'CPF_PROFESSOR');
 
     }
 

@@ -21,12 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('inicial',function (){
 
-    return view('Professores.index', ['title' => 'Professores', 'teste' => true]);
-
-});
-
+Route::get('inicial', 'ProfessoresController@dashboards');
 
 Route::get('listaprofessor','ProfessoresController@inicial');
 
@@ -42,7 +38,7 @@ Route::post('getIES_Reg','ProfessoresController@getIES_Reg');
 
 Route::post('getCampus_IES','ProfessoresController@getCampus_IES');
 
-Route::post('lista_professor','ProfessoresController@lista_professor');
+Route::post('lista_professor','ProfessoresController@lista_professor2');
 
 Route::post('getCampus','AtuacaoController@getCampus');
 
@@ -54,4 +50,4 @@ Route::get('/busca','RelatorioController@Busca')->middleware('auth');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'ProfessoresController@dashboards');

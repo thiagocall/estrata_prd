@@ -56,56 +56,53 @@
 
 <!-- Button trigger modal -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Cursos do Professor</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-        	<div class="col-md-6">
-           
-        		<p><strong>Curso ({{$professor->Info_Cursos->unique('NOM_CURSO')->count()}})</strong></p>
-        	</div>
-        	<div class="col-md-6">
-        		<p><strong>Campus ({{$professor->Info_Cursos->unique('NOM_CAMPUS')->count()}})</strong></p>
-        	</div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Cursos do Professor</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <div class="row">
+          	<div class="col-md-6">
+             
+          		<p><strong>Curso ({{$professor->Info_Cursos->unique('NOM_CURSO')->count()}})</strong></p>
+          	</div>
+          	<div class="col-md-6">
+          		<p><strong>Campus ({{$professor->Info_Cursos->unique('NOM_CAMPUS')->count()}})</strong></p>
+          	</div>
+          </div>
 
-        
-        @foreach($professor->Info_Cursos as $curso)
-        <div class="row">
-        	<div class="col-md-6">
-           
-        		<p>{{$curso['NOM_CURSO']}}</p>
-        	</div>
           
-        	<div class="col-md-6 border-left">
+          @foreach($professor->Info_Cursos as $curso)
+          <div class="row">
+          	<div class="col-md-6">
+             
+          		<p>{{$curso['NOM_CURSO']}}</p>
+          	</div>
             
-        		<p>{{$curso['NOM_CAMPUS']}}</p>
-            
-        	</div>
+          	<div class="col-md-6 border-left">
+              
+          		<p>{{$curso['NOM_CAMPUS']}}</p>
+              
+          	</div>
+          </div>
+          
+          
+          @endforeach
+          
         </div>
-        
-        
-        @endforeach
-        
-      </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
 
 <button class="btn btn-outline-primary" id="btn_voltar"  ">Voltar </button>
 </div>

@@ -21,6 +21,35 @@ class ProfessoresController extends Controller
 
         }
 
+        public function dashboards (){
+
+            $professores = Professores::where('IND_EXERCICIO','SIM')
+                           ->get();
+            
+            $professoresTI = Professores::whereHas('Info', function($query) {
+                $query->where('Regime_Ajustado', '=' ,"TEMPO INTEGRAL");
+            })->where('IND_EXERCICIO','SIM')->get();
+
+             $professoresTP = Professores::whereHas('Info', function($query) {
+                $query->where('Regime_Ajustado', '=' ,"TEMPO PARCIAL");
+            })->where('IND_EXERCICIO','SIM')->get();
+
+             $professoresH = Professores::whereHas('Info', function($query) {
+                $query->where('Regime_Ajustado', '=' ,"HORISTA");
+            })->where('IND_EXERCICIO','SIM')->get();
+
+            
+            $qtdAtivos = $professores->count();
+            $qtdTI = $professoresTI->count();
+            $qtdTP = $professoresTP->count();
+            $qtdH = $professoresH->count();
+
+            
+
+            return view('Professores.index', ['qtdTI' => $qtdTI, 'qtdAtivos' => $qtdAtivos, 'qtdTP' => $qtdTP, 'qtdH' => $qtdH]);
+
+        }
+
 
     public function mostrar ($id){
 
@@ -127,14 +156,58 @@ class ProfessoresController extends Controller
                     $corpo .= "<td>{$p->Professor->NOME}</td>" . PHP_EOL;
                     $corpo .= "<td>{$p->CPF_PROFESSOR}</td>" . PHP_EOL;
                     $corpo .= "<td>{$p->Info->Titulacao_Considerada}</td>" . PHP_EOL;
-                    $corpo .= "<td><a class='fas fa-id-card' style='color:#273746' role='span'";
-                    $corpo .= "href=" . url("mostrar/". $p->Professor->ID);
+                    $corpo .= "<td><a class='fas fa-id-card' style='color:#273746' role='span'" . PHP_EOL;
+                    $corpo .= "href=" . url("mostrar/". $p->Professor->ID); //$corpo .= "href=" . url("mostrar/". $p->Professor->ID);
                     $corpo .= " </a></td>" . PHP_EOL;
                     $corpo .= "</tr>" . PHP_EOL; 
                 }
 
                 if ($total == 0)
                      $corpo = "Não há professores para essa pesquisa.";
+
+
+
+                 return ['campus' => $corpo];
+
+            }
+
+
+
+
+
+    public function lista_professor2(Request $request){
+
+
+           $id_campus = $request->post('id_campus');
+           $cpf = $request->post('cpf');
+
+     
+            $campus = Professor_Curso::select('CPF_PROFESSOR')
+                      ->where('COD_CAMPUS', '=', $id_campus)
+                      ->orwhere('CPF_PROFESSOR', '=', $cpf)
+                      ->distinct('CPF_PROFESSOR')
+                      ->get();
+
+            $total = $campus->count();
+
+                $corpo = "";
+
+                foreach($campus as $p)
+                { 
+                    $corpo .= "<div class='row'>" . PHP_EOL; 
+                    $corpo .= "<div class='col-md-4'>{$p->Professor->NOME}</div>" . PHP_EOL;
+                    $corpo .= "<div class='col-md-2'>{$p->CPF_PROFESSOR}</div>" . PHP_EOL;
+                    $corpo .= "<div class='col-md-3'>{$p->Info->Titulacao_Considerada}</div>" . PHP_EOL;
+                    $corpo .= "<div class='col-md-3'><a class='fas fa-id-card' style='color:#273746' role='span'";
+                    $corpo .= " href= 'mostrar/" . $p->Professor->ID . "'"; //$corpo .= "href=" . url("mostrar/". $p->Professor->ID);
+                    $corpo .= "></a> </div>" . PHP_EOL;
+                    $corpo .= "</div> " . PHP_EOL; 
+                     $corpo .= "<hr> " . PHP_EOL; 
+                }
+
+                if ($total == 0)
+                     $corpo = "Não há professores para essa pesquisa.";
+
 
                  return ['campus' => $corpo];
 

@@ -96,7 +96,6 @@
   </div>
 </nav>
 
- @yield('content')
+@yield('content')
  
-</div>
 @include('layout.foot')

@@ -8,6 +8,11 @@
 </div>
 
 <div class="container">
+    <div class="container" >
+  <div class="progress">
+     <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="75" >25%</div>
+  </div>
+  </div>
 
 <form action="#" mezthod="POST" >
  @csrf

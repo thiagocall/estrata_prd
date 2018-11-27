@@ -1,10 +1,6 @@
 
-<script src="https://unpkg.com/popper.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 
@@ -124,18 +120,19 @@ $(function(){
           })});
 
 //********************** Busca lista de professores
+
 $(function(){ 
         $('#btn_buscar').click(function(){
           var id_campus = $('#campus').val();
           var cpf_ = $('#cpf').val();
-          $('#lista').html("<div class='container text-center' style='margin-top:15%'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=5% > processando...</div>")
+          $('#lista').html("<div class='container text-center' style='margin-top:15%'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=5%> processando... </div>")
               $.ajax({
               type: "POST",
               url: "{{url('lista_professor')}}",
               data: {id_campus: id_campus, cpf: cpf_},
               success: function(data){
-              $('#lista').html(data['campus']);
-              console.log(data['campus'])
+              $('#lista').html(data['corpo']);
+              console.log([data['qtdTotal'], data['qtdTI'], data['qtdTP'], data['qtdH']]);
                 }       
                   });      
           })});
@@ -151,29 +148,83 @@ $(function(){
      ////////////////////////****************************************
 
 
-
 $(document).ready(function() {localStorage.idshow = "0"});
+
+/*
+$(function() {
+    $('body').click(function(){
+        if(localStorage.idshow == "1") {
+            $('md_detalhe').slideUp("slow");
+            alert("body clicado");
+            //localStorage.idshow = "0";
+            $('md_detalhe').removeClass( "fa fa-minus" ).addClass( "fa fa-plus" )
+                 };
+            })}
+    );
+    */
 
 function mostraDetalhes(obj){
     //localStorage.idshow = localStorage.idshow + 1;
-    if(localStorage.idshow == "0"){
-    $("#t_"+ obj.id).slideDown("slow");
-    localStorage.idshow = "1";
+    if($("#d_"+ obj.id).hasClass("fechado")){
+        $("#d_"+ obj.id).slideDown("slow").removeClass("fechado").addClass("aberto");
+        $("#" + obj.id).removeClass( "fa fa-plus" ).addClass( "fa fa-minus" )
       }
 
     else {
 
-        $("#t_" + obj.id).slideUp("slow");
-        localStorage.idshow = "0";
+        $("#d_" + obj.id).slideUp("slow").removeClass("aberto").addClass("fechado");
+        $("#" + obj.id).removeClass( "fa fa-minus" ).addClass( "fa fa-plus" );
     
   }
 
   }
 
+
+
+  //*********************** Chart.JS *********************//
+
+
+
+var ctx = $("#chart_TI");
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+                  data: [1250,3000,870],
+
+                  backgroundColor: ['rgba(8, 66, 103  , 1)',
+                                    'rgba(221, 222, 64, 1)',
+                                    'rgba(111, 200, 191  , 1)']
+
+                  }
+                  
+                  ],
+        labels: ['Horista','T. Integral','T. Parcial'],
+        
+        },
+
+    options: {
+              legend: {display:false}}
+          
+});
+
+
+
+
+
     </script>
 
     <style type="text/css">
-      
+
+
+    progress {
+
+        background-color: #fff;
+
+
+    }
+
+
 
 .progress{
     width: 150px;

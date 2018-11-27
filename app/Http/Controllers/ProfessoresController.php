@@ -174,9 +174,9 @@ class ProfessoresController extends Controller
 
     public function lista_professor2(Request $request){
 
-           $tick_cpf = false;
-           $id_campus = $request->post('id_campus');
-           $cpf = $request->post('cpf');
+            $tick_cpf = false;
+            $id_campus = $request->post('id_campus');
+            $cpf = $request->post('cpf');
 
             if ($cpf == null) {
 
@@ -208,20 +208,19 @@ class ProfessoresController extends Controller
 
                 }
 
-
                 if (!$tick_cpf) {
 
                     $qtdTI = Professor_Curso::select('CPF_PROFESSOR')->whereHas('Info', function($query) {
                                    $query->where('Regime_Ajustado','TEMPO INTEGRAL')
                                          ->where('ind_ativo','SIM');
-                                })->where('COD_CAMPUS' ,'=',$id_campus)
+                                    })->where('COD_CAMPUS' ,'=',$id_campus)
                                   ->distinct()
                                   ->count('CPF_PROFESSOR');
 
                    $qtdTP = Professor_Curso::select('CPF_PROFESSOR')->whereHas('Info', function($query) {
                                    $query->where('Regime_Ajustado','TEMPO PARCIAL')
                                          ->where('ind_ativo','SIM');
-                                })->where('COD_CAMPUS' ,'=',$id_campus)
+                                    })->where('COD_CAMPUS' ,'=',$id_campus)
                                   ->distinct()
                                   ->count('CPF_PROFESSOR');
 
@@ -229,7 +228,7 @@ class ProfessoresController extends Controller
                     $qtdH = Professor_Curso::select('CPF_PROFESSOR')->whereHas('Info', function($query) {
                                    $query->where('Regime_Ajustado','HORISTA')
                                          ->where('ind_ativo','SIM');
-                                })->where('COD_CAMPUS' ,'=',$id_campus)
+                                    })->where('COD_CAMPUS' ,'=',$id_campus)
                                   ->distinct()
                                   ->count('CPF_PROFESSOR');
 
@@ -240,6 +239,7 @@ class ProfessoresController extends Controller
 
                 $corpo = "";
                 $detalhes = "";
+                $resumo = "";
 
                 foreach($campus as $p)
                 { 
@@ -264,7 +264,6 @@ class ProfessoresController extends Controller
                     $corpo .= "<p><strong>Nascimento: </strong>" .  date("d/m/Y", strtotime($p->Professor->DT_NASCIMENTO)) . "</p>";
                     $corpo .= "<p><strong>Sexo: </strong> " .  $p->Professor->SEXO . " </p>";
                     $corpo .= "<p><strong>Cidade de Nascimento: </strong>" . $p->Professor->MUNICIPIO_NASC . "</p>";
-                    $corpo .= "<p><strong> </strong></p>";
                     $corpo .= "</div>" . PHP_EOL;
                     $corpo .= "</div></div>" . PHP_EOL;
 
@@ -286,13 +285,36 @@ class ProfessoresController extends Controller
                     $corpo .= "</div> " . PHP_EOL; 
                     $corpo .= "<hr> " . PHP_EOL;
 
+
                 }
+
+                //########## monta detalhes para html ############
+                    $detalhes .= "<h5 class='card-title' >Resumo";
+                    $detalhes .= "<button type='button' class='close' aria-label='Close' onClick='hideResumo()'>". PHP_EOL;
+                    $detalhes .= "<span aria-hidden='true'>&times;</span>". PHP_EOL;
+                    $detalhes .= "</button></h5>" . PHP_EOL;
+                    $detalhes .= "<p class='card-text mb-2'>" . PHP_EOL;
+                    $detalhes .= "Total TI(<small>{$qtdTI}</small>)" . PHP_EOL;
+                    $detalhes .= "<progress value='{$qtdTI}' max='{$campus->count()}' style='height: 10px;width: 80%'></progress>" . PHP_EOL;
+                    $detalhes .= "</p>" . PHP_EOL;
+                    $detalhes .= "<p class='card-text mb-2'>" . PHP_EOL;
+                    $detalhes .= "Total TP(<small>{$qtdTP}</small>)" . PHP_EOL;
+                    $detalhes .= "<progress value='{$qtdTP}' max='{$campus->count()}' style='height: 10px;width: 80%'></progress>" . PHP_EOL;
+                    $detalhes .= " </p>" . PHP_EOL;
+                    $detalhes .= " <p class='card-text mb-4'>" . PHP_EOL;
+                    $detalhes .= " Total Horista(<small>{$qtdH}</small>)" . PHP_EOL;
+                    $detalhes .= " <progress value='{$qtdH}' max='{$campus->count()}' style='height: 10px;width: 80%'></progress>" . PHP_EOL;
+                    $detalhes .= " </p>" . PHP_EOL;
+                    $detalhes .= " <p class='card-text'>" . PHP_EOL;
+                    $detalhes .= " <strong>Total - {$campus->count()}</strong>" . PHP_EOL;
+                    $detalhes .= " </p>" . PHP_EOL;
+
 
                 if ($total == 0)
                      $corpo = "Não há professores para essa pesquisa.";
 
                 //return ['corpo' => $corpo,'mostra_grafico' => !$tick_cpf, 'qtdTI' => $qtdTI];
-                return ['corpo' => $corpo,'mostra_grafico' => !$tick_cpf, 'qtdTI' => $qtdTI, 'qtdTP' => $qtdTP, 'qtdH' => $qtdH, 'qtdTotal' => $campus->count()];
+                return ['corpo' => $corpo,'mostra_grafico' => !$tick_cpf, 'qtdTI' => $qtdTI, 'qtdTP' => $qtdTP, 'qtdH' => $qtdH, 'qtdTotal' => $campus->count(), 'detalhes' => $detalhes];
             }
 
 

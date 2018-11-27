@@ -46,16 +46,8 @@
 
 
  </div>
-<div class="container fixed-bottom text-center" style="width: 200px;height: 110px; left: 88%; bottom:4%; display:none; "> 
-  <strong>Resumo</strong>
-   <canvas id="chart_TI" width="500" height="300">
-   </canvas>
-</div>
-
-
 
   <div class="container" style="padding-top: 5%">
-
     
     <div class="col-md-12">
 
@@ -76,10 +68,22 @@
       <div id="lista">
         
       </div>
+
+      <!--<div class="container fixed-bottom text-center" id="canvas_1" style="width: 180px;height: 80px; left: 88%; bottom:4%;display: none"> -->
+  
+   <!--<canvas id="chart_TI" width="500" height="300"> 
+   </canvas> 
+  </div> -->
       
       </div>
   </div> 
+
 </div>
+   <div class="card fixed-bottom" id="canvas_1" style="width: 160px;height: 200; left: 88%; bottom:2%;display: none">
+      <div class="card-body" id="resumo">
+
+      </div>
+    </div>
 
 
     @endsection

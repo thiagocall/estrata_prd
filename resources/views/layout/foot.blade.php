@@ -125,6 +125,7 @@ $(function(){
         $('#btn_buscar').click(function(){
           var id_campus = $('#campus').val();
           var cpf_ = $('#cpf').val();
+          $("#canvas_1").slideUp('slow');
           $('#lista').html("<div class='container text-center' style='margin-top:15%'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=5%> processando... </div>")
               $.ajax({
               type: "POST",
@@ -132,7 +133,17 @@ $(function(){
               data: {id_campus: id_campus, cpf: cpf_},
               success: function(data){
               $('#lista').html(data['corpo']);
-              console.log([data['qtdTotal'], data['qtdTI'], data['qtdTP'], data['qtdH']]);
+              //console.log([data['qtdTotal'], data['qtdTI'], data['qtdTP'], data['qtdH']]);
+              //############# Mota canvas do Chart.js ##############
+              /*
+                    var dados = [data['qtdTI'], data['qtdTP'], data['qtdH']];
+                    newChart(dados);
+                    $("#canvas_1").slideDown('slow'); */
+
+              //############# Mota resumo em HTML ##############
+              $('#resumo').html(data['detalhes']);
+              $("#canvas_1").slideDown('slow');
+
                 }       
                   });      
           })});
@@ -180,17 +191,25 @@ function mostraDetalhes(obj){
   }
 
 
+function hideResumo(){
+
+
+    $('#canvas_1').slideUp("slow");
+}
+
+
+
 
   //*********************** Chart.JS *********************//
 
-
-
-var ctx = $("#chart_TI");
+/*
+function newChart(data_){
+  var ctx = $("#chart_TI");
 var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         datasets: [{
-                  data: [1250,3000,870],
+                  data: data_,
 
                   backgroundColor: ['rgba(8, 66, 103  , 1)',
                                     'rgba(221, 222, 64, 1)',
@@ -208,9 +227,9 @@ var myChart = new Chart(ctx, {
           
 });
 
+}
 
-
-
+*/
 
     </script>
 

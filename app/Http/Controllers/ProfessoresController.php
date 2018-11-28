@@ -177,8 +177,11 @@ class ProfessoresController extends Controller
             $tick_cpf = false;
             $id_campus = $request->post('id_campus');
             $cpf = $request->post('cpf');
+            $id_ies = $request->post('id_ies');
 
-            if ($cpf == null) {
+
+            //Preenche campus
+            if ($cpf == "" && $id_campus !="") {
 
             $campus = Professor_Curso::select('CPF_PROFESSOR')
                       ->where('COD_CAMPUS', '=', $id_campus)
@@ -187,55 +190,101 @@ class ProfessoresController extends Controller
 
                 }
 
-                elseif($id_campus ==null && $cpf!=null){
+            //Preenche CPF
+                elseif($cpf!=""){
 
                     $campus = Professor_Curso::select('CPF_PROFESSOR')
-                      ->where('CPF_PROFESSOR', 'like', '%' . $cpf . '%')
-                      ->distinct('CPF_PROFESSOR')
-                      ->get();
-                      $tick_cpf = true;
+                                ->where('CPF_PROFESSOR', 'like', '%' . $cpf . '%')
+                                ->distinct('CPF_PROFESSOR')
+                                ->get();
+                                $tick_cpf = true;
+                      
+                }
 
+                elseif($id_campus == "" && $cpf=="" && $id_ies !=""){
+
+                   $campus = Professor_Curso::select('CPF_PROFESSOR')
+                                ->whereHas('Campus', function($query) use ($id_ies) {
+                                    $query->where('COD_IES', $id_ies);})
+                                ->whereHas('Info', function($query) {
+                                   $query->where('ind_ativo','SIM');})
+                                ->distinct('CPF_PROFESSOR')
+                                ->get();
+                         
+                }
+
+                 elseif($id_campus == "" && $cpf=="" && $id_ies ==""){
+
+                   $campus = Professor_Curso::select('CPF_PROFESSOR')
+                                ->where('CPF_PROFESSOR','=', '999999999999999')
+                                ->distinct('CPF_PROFESSOR')
+                                ->get();
+                                $tick_cpf = true;     
+                     
                 }
 
                 else{
 
-                     $campus = Professor_Curso::select('CPF_PROFESSOR')
-                      ->where('COD_CAMPUS', '=', $id_campus)
-                      ->where('CPF_PROFESSOR', 'like', '%' . $cpf . '%')
-                      ->distinct('CPF_PROFESSOR')
-                      ->get();
-                      $tick_cpf = true;
+                    /* $campus = Professor_Curso::select('CPF_PROFESSOR')
+                                  ->whereHas('Info', function($query) {
+                                        $query->where('ind_ativo','SIM');})
+                                  ->distinct('CPF_PROFESSOR')
+                                  ->get();
+                                   $tick_cpf = false;*/
+                 $campus = Professor_Curso::select('CPF_PROFESSOR')
+                              ->where('CPF_PROFESSOR','=', '999999999999999')
+                              ->distinct('CPF_PROFESSOR')
+                              ->get();
+                              $tick_cpf = true;
+
 
                 }
 
                 if (!$tick_cpf) {
+                    $qtdTP = 0;
+                    $qtdH = 0;
+                    $qtdTI = 0;
 
-                    $qtdTI = Professor_Curso::select('CPF_PROFESSOR')->whereHas('Info', function($query) {
-                                   $query->where('Regime_Ajustado','TEMPO INTEGRAL')
-                                         ->where('ind_ativo','SIM');
-                                    })->where('COD_CAMPUS' ,'=',$id_campus)
+                   
+                    $qtdTI = Professor_Curso::
+                                  whereHas('Info', function($query) {
+                                             $query->where('Regime_Ajustado','TEMPO INTEGRAL')
+                                                   ->where('ind_ativo','SIM');})
+                                  ->whereHas('Campus', function($query) use ($id_ies) {
+                                             $query->where('COD_IES', $id_ies);})
+                                  ->where('COD_CAMPUS' ,(($id_campus == "") ? '>' :'=') , (($id_campus == "") ? 0 : $id_campus))
+                                  ->distinct()
+                                  ->count('CPF_PROFESSOR');
+                                
+                   
+                   $qtdTP = Professor_Curso::select('CPF_PROFESSOR')
+                                  ->whereHas('Info', function($query) {
+                                             $query->where('Regime_Ajustado','TEMPO PARCIAL')
+                                                   ->where('ind_ativo','SIM');})
+                                  ->whereHas('Campus', function($query) use ($id_ies) {
+                                             $query->where('COD_IES', $id_ies);})
+                                  ->where('COD_CAMPUS',(($id_campus == "") ? '>' :'=') , (($id_campus == "") ? 0 : $id_campus))
                                   ->distinct()
                                   ->count('CPF_PROFESSOR');
 
-                   $qtdTP = Professor_Curso::select('CPF_PROFESSOR')->whereHas('Info', function($query) {
-                                   $query->where('Regime_Ajustado','TEMPO PARCIAL')
-                                         ->where('ind_ativo','SIM');
-                                    })->where('COD_CAMPUS' ,'=',$id_campus)
+                    
+                    $qtdH = Professor_Curso::select('CPF_PROFESSOR')
+                                   ->whereHas('Info', function($query) {
+                                             $query->where('Regime_Ajustado','HORISTA')
+                                                   ->where('ind_ativo','SIM');})
+                                   ->whereHas('Campus', function($query) use ($id_ies) {
+                                             $query->where('COD_IES', $id_ies);})
+                                  ->where('COD_CAMPUS' ,(($id_campus == "") ? '>' :'=') , (($id_campus == "") ? 0 : $id_campus))
                                   ->distinct()
-                                  ->count('CPF_PROFESSOR');
-
-
-                    $qtdH = Professor_Curso::select('CPF_PROFESSOR')->whereHas('Info', function($query) {
-                                   $query->where('Regime_Ajustado','HORISTA')
-                                         ->where('ind_ativo','SIM');
-                                    })->where('COD_CAMPUS' ,'=',$id_campus)
-                                  ->distinct()
-                                  ->count('CPF_PROFESSOR');
+                                  ->count('CPF_PROFESSOR'); 
 
                     }
 
+                else { 
+                      $qtdTI = 0; $qtdTP = 0; $qtdH = 0;}
 
-            $total = $campus->count();
+
+                $total = $campus->count();
 
                 $corpo = "";
                 $detalhes = "";
@@ -285,7 +334,6 @@ class ProfessoresController extends Controller
                     $corpo .= "</div> " . PHP_EOL; 
                     $corpo .= "<hr> " . PHP_EOL;
 
-
                 }
 
                 //########## monta detalhes para html ############
@@ -310,8 +358,10 @@ class ProfessoresController extends Controller
                     $detalhes .= " </p>" . PHP_EOL;
 
 
-                if ($total == 0)
+                if ($total == 0){
                      $corpo = "Não há professores para essa pesquisa.";
+                     $tick_cpf = true;
+                   }
 
                 //return ['corpo' => $corpo,'mostra_grafico' => !$tick_cpf, 'qtdTI' => $qtdTI];
                 return ['corpo' => $corpo,'mostra_grafico' => !$tick_cpf, 'qtdTI' => $qtdTI, 'qtdTP' => $qtdTP, 'qtdH' => $qtdH, 'qtdTotal' => $campus->count(), 'detalhes' => $detalhes];

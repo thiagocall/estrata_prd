@@ -79,8 +79,8 @@
   </div> 
 
 </div>
-   <div class="card fixed-bottom" id="canvas_1" style="width: 160px;height: 200; left: 88%; bottom:2%;display: none">
-      <div class="card-body" id="resumo">
+   <div class="card fixed-bottom" id="canvas_1" style="width: 168px;height: 200; left: 88%; bottom:2%;">
+      <div class="card-body p-3" id="resumo">
 
       </div>
     </div>

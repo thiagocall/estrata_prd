@@ -22,5 +22,11 @@ class Professor_Curso extends Model
 
     }
 
+     public function Campus (){
+
+    	return $this->hasOne('App\Regional' , 'COD_CAMPUS' , 'COD_CAMPUS');
+
+    }
+
 
 }

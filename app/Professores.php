@@ -22,7 +22,7 @@ class Professores extends Model
     	return $this->hasMany('App\Professor_Curso', 'CPF_PROFESSOR', 'CPF');
 
     }
-
+    
 
 }
 

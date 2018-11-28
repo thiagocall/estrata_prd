@@ -119,21 +119,22 @@ $(function(){
                     
           })});
 
-//********************** Busca lista de professores
+//###################### Busca lista de professores ######################
 
 $(function(){ 
         $('#btn_buscar').click(function(){
           var id_campus = $('#campus').val();
           var cpf_ = $('#cpf').val();
+          var id_ies = $('#ies').val();
           $("#canvas_1").slideUp('slow');
           $('#lista').html("<div class='container text-center' style='margin-top:15%'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=5%> processando... </div>")
               $.ajax({
               type: "POST",
               url: "{{url('lista_professor')}}",
-              data: {id_campus: id_campus, cpf: cpf_},
+              data: {id_campus: id_campus, cpf: cpf_, id_ies: id_ies},
               success: function(data){
               $('#lista').html(data['corpo']);
-              //console.log([data['qtdTotal'], data['qtdTI'], data['qtdTP'], data['qtdH']]);
+              //console.log(typeof(id_campus));
               //############# Mota canvas do Chart.js ##############
               /*
                     var dados = [data['qtdTI'], data['qtdTP'], data['qtdH']];
@@ -141,10 +142,18 @@ $(function(){
                     $("#canvas_1").slideDown('slow'); */
 
               //############# Mota resumo em HTML ##############
-              $('#resumo').html(data['detalhes']);
-              $("#canvas_1").slideDown('slow');
+              if (data['mostra_grafico']){
+                $('#resumo').html(data['detalhes']);
+                $("#canvas_1").slideDown('slow');
+                    }
 
-                }       
+                },
+                error: function(data){
+                  console.log(data.status);
+                  $('#lista').html('Ops! Deu erro na consulta...');
+
+                }
+
                   });      
           })});
 

@@ -25,7 +25,7 @@
       <td >{{$p->NOME}}</td>
       <td >{{$p->CPF}}</td>
       <td >{{$p->UF_NASC}}</td>
-      <td> <a class="fa fa-id-badge" style="color:#273746" href="{{url('mostrar/'.$p->ID)}}"></a></td>
+      <td> <a class="fa fa-id-badge" style="color:#273746" href="{{url('mostrar/'.$p->CPF)}}"></a></td>
 
     </tr>
     @endforeach

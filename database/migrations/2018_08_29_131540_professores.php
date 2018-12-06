@@ -14,7 +14,6 @@ class Professores extends Migration
     public function up()
     {
         Schema::create('professores', function (Blueprint $table) {
-            $table->increments('id')->index();
             $table->string('cpf');
             $table->string('nome');
             $table->date('dt_nascimento');

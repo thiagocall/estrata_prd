@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Professores extends Model
 {
     protected $table = 'TbPROFESSORES';
+    protected $primaryKey = 'CPF';
+    //protected $fillable = [];
 
 
     public $timestamps=false;

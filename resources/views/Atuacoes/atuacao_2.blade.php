@@ -3,7 +3,7 @@
 @section('content')
 <br>
 <div class="container text-center mb-1">
-  <h3>Lançamento de Atuação Fixa</h3>
+  <h3>Lançamento de Atuação Fixa - Teste</h3>
   <hr>
 </div>
 
@@ -29,7 +29,7 @@
 
   <div class="col-md-6">
     <label for="ies"><strong>Ies:</strong></label>
-      <select class="form-control" id="ies" disabled="">
+      <select class="form-control" id="ies_" disabled="">
 
       </select>
   </div>
@@ -72,7 +72,6 @@
   </select>
   </div>
   </div>
-
 
 <div class="form-group">
  <div class="row justify-content-md-center">

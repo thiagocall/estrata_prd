@@ -1,9 +1,9 @@
 @extends('layout.app')
 @section('title','Atuação Fixa')
-@section('content')
+@section('atuacao_')
 <br>
 <div class="container text-center mb-1">
-  <h3>Lançamento de Atuação Fixa</h3>
+  <h3>Lançamento de Atuação Fixa - Teste</h3>
   <hr>
 </div>
 
@@ -75,12 +75,14 @@
       <button type="submit" class="btn btn-primary">Continuar</button>
     </div>
     <div class="col-lg-auto">
-      <a href="{{url('/inicial')}}" class="btn btn-warning">Menu Principal</a>
+      <a href="{{route('dashboards')}}" class="btn btn-warning">Menu Principal</a>
     </div>
   </div>
 </div>
 
-
 </form>
+
+
+@include('javascript.atuacao')
 
 @endsection

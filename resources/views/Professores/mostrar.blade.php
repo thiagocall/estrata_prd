@@ -1,5 +1,6 @@
-@include('layout.head')
-
+@extends('layout.app')
+@section('title','Detalhes')
+@section('content')
 
 <div class="container">
 
@@ -104,8 +105,8 @@
     </div>
   </div>
 
-<button class="btn btn-outline-primary" id="btn_voltar"  ">Voltar </button>
+<button class="btn btn-outline-primary" id="btn_fechar"  ">Fechar </button>
+<button class="btn btn-outline-primary" id="btn_expPDF" onclick = location.href='{{url("/detalhePDF/" . $professor->CPF)}}'>Exportar para PDF</button>
 </div>
-
-
-@include('layout.foot')
+@include('javascript.professores')
+@endsection

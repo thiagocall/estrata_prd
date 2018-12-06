@@ -11,12 +11,12 @@
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
-          <a class="dropdown-item" id="a_" href="/busca" >Professores por IES <span class="badge badge-primary">Novo</span></a>
-          <a class="dropdown-item" href="#">Financeiro<span class="badge badge-primary">Novo</span></a>
-          <a class="dropdown-item" href="#">Fora de Sede<span class="badge badge-primary">Novo</span></a>
-          <a class="dropdown-item" href="#">EAD</a>
-          <a class="dropdown-item" href="#">Visita</a>
-          <a class="dropdown-item" href="#">Enade</a>
+          <a class="dropdown-item" id="a_" href="{{route('Busca')}}" >Busca Professor <span class="badge badge-primary">Pronto</span></a>
+          <a class="dropdown-item" href="{{route('buscaPorCampus')}}">Resumo por Campus <span class="badge badge-warning">Em construção</span></a>
+          <a class="dropdown-item disabled" href="#">Fora de Sede</a>
+          <a class="dropdown-item disabled" href="#">EAD</a>
+          <a class="dropdown-item disabled" href="#">Visita</a>
+          <a class="dropdown-item disabled" href="#">Enade</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -97,5 +97,4 @@
 </nav>
 
 @yield('content')
- 
 @include('layout.foot')

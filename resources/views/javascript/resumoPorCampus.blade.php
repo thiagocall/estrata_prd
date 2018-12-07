@@ -96,7 +96,7 @@ $(function(){
             $(this).prop('Counter',0).animate({
             Counter: $(this).text().replace('.','')
             }, {
-            duration: 1500,
+            duration: 0,
             easing: 'swing',
             step: function (now) {
                 $(this).text(Math.ceil(now));

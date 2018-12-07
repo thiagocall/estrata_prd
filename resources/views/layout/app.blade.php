@@ -9,10 +9,11 @@
     @IF(Auth::check())
     <ul class="navbar-nav">
        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relatórios</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
-          <a class="dropdown-item" id="a_" href="{{route('Busca')}}" >Busca Professor <span class="badge badge-primary">Pronto</span></a>
-          <a class="dropdown-item" href="{{route('buscaPorCampus')}}">Resumo por Campus <span class="badge badge-warning">Em construção</span></a>
+          <a class="dropdown-item" id="a_" href="{{route('buscaProfessor')}}" >Professor <span class="badge badge-warning">Em construção</span></a>
+          <a class="dropdown-item" id="a_" href="{{route('Busca')}}" >Busca Professor </a>
+          <a class="dropdown-item" href="{{route('buscaPorCampus')}}">Resumo por Campus </a>
           <a class="dropdown-item disabled" href="#">Fora de Sede</a>
           <a class="dropdown-item disabled" href="#">EAD</a>
           <a class="dropdown-item disabled" href="#">Visita</a>

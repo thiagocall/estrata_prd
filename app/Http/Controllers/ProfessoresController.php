@@ -580,5 +580,11 @@ class ProfessoresController extends Controller
                         return $data;
 
 
+                  }
+
+    public function BuscaProfessor(){
+
+      return view('Relatorios.buscaProfessor');
+
       }
 }

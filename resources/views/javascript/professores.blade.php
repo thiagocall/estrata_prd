@@ -57,7 +57,7 @@ $(function(){
 
                 },
                 error: function(data){
-                  $('#lista').html('Ops! Deu erro na consulta...');
+                  $('#lista').html("<div class='alert alert-danger'>Ops! Erro na consulta</div>");
 
                 }
 
@@ -117,6 +117,62 @@ function showResumo(){
     $('#btnMostResumo').slideUp('Slow', function(){
       $('#canvas_1').slideDown("slow");});
 }
+
+
+//#################### Busca por Professor ########################//
+
+
+$(function(){ 
+        $('#btn_buscaProfessor').click(function(){
+          var busca = $('#cpf').val();
+          $('#lista').html("<div class='container text-center p-0 m-0'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=3%> processando... </div>");
+
+              $.ajax({
+              type: "POST",
+              url: "{{route('buscaProfessor2')}}",
+              data: {busca: busca},
+              success: function(data){
+                $('#lista').html(data['corpo']);
+                },
+                error: function(data){
+                  $('#lista').html("<div class='alert alert-danger'>Ops! Erro na consulta</div>");
+
+                }
+
+                  });      
+          })});
+
+
+
+$('#infoPessoal').on('hide.bs.collapse', function () {
+  // do something…
+    $('#btnPessoal').removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+
+    });
+
+
+
+$('#infoPessoal').on('show.bs.collapse', function () {
+  // do something…
+    $('#btnPessoal').removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
+
+    });
+
+
+
+$('#infoContrato').on('hide.bs.collapse', function () {
+  // do something…
+    $('#btnContrato').removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+
+    });
+
+
+
+$('#infoContrato').on('show.bs.collapse', function () {
+  // do something…
+    $('#btnContrato').removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
+
+    });
 
 
 

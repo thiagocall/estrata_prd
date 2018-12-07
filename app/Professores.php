@@ -24,6 +24,21 @@ class Professores extends Model
     	return $this->hasMany('App\Professor_Curso', 'CPF_PROFESSOR', 'CPF');
 
     }
+
+    public function Titulacao() {
+
+
+        return $this->hasOne('App\Professor_Titulacao', 'CPF_PROFESSOR', 'CPF');
+
+    }
+
+
+    public function Matricula(){
+
+        return $this->hasMany('App\Professor_Matricula', 'CPF_PROFESSOR', 'CPF');
+        
+
+    }
     
 
 }

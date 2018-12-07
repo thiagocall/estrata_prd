@@ -7,6 +7,7 @@ use App\Instituicao;
 use App\Regional;
 use App\Professor_Curso;
 use App\Professores;
+use App\Professor_Matricula;
 use Excel;
 
 
@@ -41,7 +42,6 @@ class RelatorioController extends Controller
 
 
 		}
-
 
 
 	Public function BuscaPorCampus() {
@@ -186,5 +186,67 @@ class RelatorioController extends Controller
 	   					}
 
 			}
+
+
+	public function BuscaProfessor(Request $request){
+
+
+			$busca = $request->post('busca');
+			//with('Matricula')    ##### Usando para carregar o modelo em eager load
+			$professores = Professores::WhereHas('Matricula', function($query) use ($busca) {
+								$query->where('NUM_MATRICULA','=', $busca)
+									  ->where('IND_TIPO_CONTRATO','<>', 'S');})
+							->orWhere('CPF','=', $busca)
+							->get();
+
+			$corpo = "";
+
+
+			foreach ($professores as $p) {
+				
+				foreach ($p->Matricula as $m) {
+
+					$corpo .= "<div class='row'>" . PHP_EOL;
+					$corpo .= "<div class='col-md-5'>" .$p->NOME . "</div>" . PHP_EOL;
+		            $corpo .= "<div class='col-md-2'>" .$m->NUM_MATRICULA . "</div>" . PHP_EOL;
+		            $corpo .= "<div class='col-md-2'>" . date("d/m/Y", strtotime($m->DT_ADMISSAO_PROFESSOR)) . "</div>" . PHP_EOL;
+		            $corpo .= "<div class='col-md-1'>{$p->CPF}</div>" . PHP_EOL;
+					$corpo .= "<div class='col-md-2 ml-0'><a target='_blank'" . "href='" . url("/buscaProfessor") . "/" . $m->NUM_MATRICULA . "' ><span class='btn fas fa-search-plus' style='color:#4742F0;'</span></a></div>" . PHP_EOL;
+					$corpo .= "</div>" . PHP_EOL;
+					$corpo .= "<hr>" . PHP_EOL;
+
+				}
+			}	
+
+
+			if ($professores->count() == 0)
+			{
+
+				$data = [ 'corpo' => 'Ops! Não foram encontrados professores para sua pesquisa.'];				
+
+			}
+			else {
+
+				$data = [ 'corpo' => $corpo];
+
+			}
+
+			return $data;
+
+			}
+
+
+	public function VerProfessor ($matricula){
+
+			
+			
+			$matricula = Professor_Matricula::with('Professor','Sindicato')
+								->find($matricula);
+
+
+			  return view("Relatorios.mostrarProfessor", compact('matricula','professor'));
+			  //return ['Matricula' => $matricula->Professor->DT_NASCIMENTO];
+
+	}
 
 }

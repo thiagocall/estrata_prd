@@ -1,5 +1,11 @@
 <script type="text/javascript">
 
+  $(function () {
+    
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+
 $(function(){
         $('#regional').change(function(){
           var id_regional = $('#regional').val();
@@ -159,13 +165,11 @@ $('#infoPessoal').on('show.bs.collapse', function () {
     });
 
 
-
 $('#infoContrato').on('hide.bs.collapse', function () {
   // do something…
     $('#btnContrato').removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
 
     });
-
 
 
 $('#infoContrato').on('show.bs.collapse', function () {
@@ -175,6 +179,18 @@ $('#infoContrato').on('show.bs.collapse', function () {
     });
 
 
+$('#infoRegulatorio').on('hide.bs.collapse', function () {
+  // do something…
+    $('#btnRegulatorio').removeClass('fas fa-angle-up').addClass('fas fa-angle-down');
+
+    });
+
+
+$('#infoRegulatorio').on('show.bs.collapse', function () {
+  // do something…
+    $('#btnRegulatorio').removeClass('fas fa-angle-down').addClass('fas fa-angle-up');
+
+    });
 
 
   //*********************** Chart.JS *********************//

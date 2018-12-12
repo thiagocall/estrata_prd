@@ -211,7 +211,7 @@
     </div>
 
 
-  <button id ="btnExport" class="btn btn-success fas fa-2x fa-file-excel fixed-bottom p-0" data-toggle="tooltip" data-placement="top" title="download Excel" style="left: 1%;bottom: 2%" onClick="ExportExcel()"></button>
+  <button id ="btnExport" class="btn fas fa-2x fa-file-excel fixed-bottom p-0" data-toggle="tooltip" data-placement="top" title="download Excel" style="left: 95%;bottom: 2%;color: #217346;" onClick="ExportExcel()"></button>
   </div>
 
   <!-- Modal -->

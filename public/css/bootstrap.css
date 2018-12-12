@@ -5442,7 +5442,7 @@ button.close {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  min-height: calc(100% - (0.5rem * 2));
+  min-height: calc(140% - (0.5rem * 2));
 }
 
 .modal-content {
@@ -5547,7 +5547,7 @@ button.close {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 900px;
     margin: 1.75rem auto;
   }
   .modal-dialog-centered {
@@ -5560,7 +5560,7 @@ button.close {
 
 @media (min-width: 992px) {
   .modal-lg {
-    max-width: 800px;
+    max-width: 1300px;
   }
 }
 

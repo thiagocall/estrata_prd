@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Professores;
 use App\Regional;
 use App\Professor_Curso;
+use App\Professor_Matricula;
 
 
 class ProfessoresController extends Controller
@@ -430,37 +431,37 @@ class ProfessoresController extends Controller
             
             }
 
-    public function detalhePDF($cpf){
+    public function detalhePDF($matricula){
 
 
-      $professor = Professores::find($cpf);
+      $matricula = Professor_Matricula::find($matricula);
 
 
-      if ($professor->sexo == 'F') {
+      if ($matricula->Professor->sexo == 'F') {
 
-        $professor->sexo = 'Feminino';
+        $matricula->Professor->sexo = 'Feminino';
       }
 
         else{
 
-          $professor->sexo = 'Masculino';
+          $matricula->Professor->sexo = 'Masculino';
         }
         
 
-      if ($professor->IND_BOLSA_PESQ == 'S') {
+      if ($matricula->Professor->IND_BOLSA_PESQ == 'S') {
 
-        $professor->IND_BOLSA_PESQ = 'Sim';
+        $matricula->Professor->IND_BOLSA_PESQ = 'Sim';
       }
 
         else{
 
-          $professor->IND_BOLSA_PESQ = 'Não';
+          $matricula->Professor->IND_BOLSA_PESQ = 'Não';
         }
         
 
-     return \PDF::loadView('Professores.exportToPDF',compact('professor'))
+     return \PDF::loadView('Professores.exportToPDF',compact('matricula'))
                   ->setPaper('a4', 'landscape')->setWarnings(false)
-                  ->stream('Resumo_' . $cpf . '.PDF');
+                  ->stream('Resumo_' . $matricula->Professor->CPF . '.PDF');
 
 
         }

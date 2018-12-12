@@ -193,10 +193,13 @@ class RelatorioController extends Controller
 
 			$busca = $request->post('busca');
 			//with('Matricula')    ##### Usando para carregar o modelo em eager load
-			$professores = Professores::WhereHas('Matricula', function($query) use ($busca) {
-								$query->where('NUM_MATRICULA','=', $busca)
+
+			$buscaInt = intval($busca);
+			$professores = Professores::WhereHas('Matricula', function($query) use ($buscaInt) {
+								$query->where('NUM_MATRICULA','=', $buscaInt)
 									  ->where('IND_TIPO_CONTRATO','<>', 'S');})
-							->orWhere('CPF','=', $busca)
+							->orWhere('CPF','=', $buscaInt)
+							->orWhere('NOME','LIKE',('%' .  $busca . '%'))
 							->get();
 
 			$corpo = "";

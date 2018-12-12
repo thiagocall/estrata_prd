@@ -24,4 +24,12 @@ class Professor_Matricula extends Model
     }
 
 
+    public function Hora_Aula() {
+
+
+        return $this->hasOne('App\Hora_Aula', 'NUM_MATRICULA', 'NUM_MATRICULA');
+
+    }
+
+
 }

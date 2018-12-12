@@ -6,17 +6,14 @@
 
   <div class="row" style="padding-left: 3%; padding-right: 3%; padding-top: 1%">
    
-
-      
-      <div class="col-md-2">
+      <div class="col-md-3">
         <label for="cpf"><strong>Busca Professor:</strong></label>
-        <input type ="text" class="form-control" id="cpf" placeholder="Cpf ou Matricula">
+        <input type ="text" class="form-control" id="cpf" placeholder="Cpf, Matricula ou Nome...">
       </div>
 
       <div class="col-md-1 pl-0" style='padding-top: 32px'>
         <button class="btn btn-primary" id='btn_buscaProfessor' ><span class="fas fa-search"></span></button>
       </div>
-
 
  </div>
 

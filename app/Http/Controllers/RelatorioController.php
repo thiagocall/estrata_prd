@@ -192,20 +192,29 @@ class RelatorioController extends Controller
 
 
 			$busca = $request->post('busca');
+			$teste = $request->route();
 			//with('Matricula')    ##### Usando para carregar o modelo em eager load
 
 			$buscaInt = intval($busca);
 			$professores = Professores::WhereHas('Matricula', function($query) use ($buscaInt) {
 								$query->where('NUM_MATRICULA','=', $buscaInt)
+									  ->whereNull('DT_DEMISSAO_PROFESSOR')
 									  ->where('IND_TIPO_CONTRATO','<>', 'S');})
 							->orWhere('CPF','=', $buscaInt)
 							->orWhere('NOME','LIKE',('%' .  $busca . '%'))
 							->get();
-
 			$corpo = "";
 
+			if($professores->count()>25){
 
-			foreach ($professores as $p) {
+				$corpo .= "<div class='row'>" . PHP_EOL;
+				$corpo .= "<div class='container text-center'>" . PHP_EOL;
+				$corpo .= "<div class='alert alert-warning'> Ops! Nem todos os dados foram retornados. Melhore sua pesquisa.</div>" . PHP_EOL;
+				$corpo .= "</div></div></div>" . PHP_EOL;
+					};
+
+
+			foreach ($professores->take(25) as $p) {
 				
 				foreach ($p->Matricula as $m) {
 
@@ -228,9 +237,10 @@ class RelatorioController extends Controller
 				$data = [ 'corpo' => 'Ops! Não foram encontrados professores para sua pesquisa.'];				
 
 			}
+
 			else {
 
-				$data = [ 'corpo' => $corpo];
+				$data = [ 'corpo' => $corpo, 'teste' => $teste];
 
 			}
 
@@ -241,7 +251,6 @@ class RelatorioController extends Controller
 
 	public function VerProfessor ($matricula){
 
-			
 			
 			$matricula = Professor_Matricula::with('Professor','Sindicato')
 								->find($matricula);

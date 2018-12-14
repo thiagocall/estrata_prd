@@ -585,7 +585,7 @@ class ProfessoresController extends Controller
 
     public function BuscaProfessor(){
 
-      return view('Relatorios.buscaProfessor');
+      return view('Relatorios.buscaProfessor',['menu' => 'Busca Professor', 'pref' => 'professor']);
 
       }
 }

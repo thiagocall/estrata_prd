@@ -11,15 +11,23 @@
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
-          <a class="dropdown-item" id="a_" href="{{route('buscaProfessor')}}">Professor <span class="badge badge-warning">Em construção</span></a>
-          <a class="dropdown-item" id="a_" href="{{route('buscaProfessor')}}">Carga Professor <span class="badge badge-warning">Em construção</span></a>
+          <a class="dropdown-item" id="a_" href="{{route('Professores.buscaProfessor')}}">Professor <span class="badge badge-warning">Em construção</span></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" id="a_" href="{{route('Busca')}}" >Professores por Campus <span class="badge badge-info">N</span></a>
-          <a class="dropdown-item" href="{{route('buscaPorCampus')}}">Resumo por Campus<span class="badge badge-info">N</span></a>
+          <a class="dropdown-item" id="a_" href="{{route('Consulta.Busca')}}" >Professores por Campus <span class="badge badge-info">N</span></a>
+          <a class="dropdown-item" href="{{route('Consulta.buscaPorCampus')}}">Resumo por Campus<span class="badge badge-info">N</span></a>
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Corpo Docente</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfessores" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Professores</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfessores" >
+          <a class="dropdown-item" href="{{route('CargaHoraria.buscaProfessor')}}">Carga Horária</a>
+          <a class="dropdown-item" href="#">Alocação em Sala</a>
+          <a class="dropdown-item" href="#">Atuações</a>
+          <a class="dropdown-item" href="#">Disciplinas Habilitadas</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDocente" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Regulatório</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownDocente" >
           <a class="dropdown-item" href="#">Censo</a>
           <a class="dropdown-item" href="#">IES</a>
@@ -27,17 +35,6 @@
           <a class="dropdown-item" href="#">EAD</a>
           <a class="dropdown-item" href="#">Visita</a>
           <a class="dropdown-item" href="#">Enade</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfessores" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Professores</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfessores" >
-          <a class="dropdown-item" href="#">Informações</a>
-          <a class="dropdown-item" href="#">Regime</a>
-          <a class="dropdown-item" href="#">Titulação</a>
-          <a class="dropdown-item" href="#">Carga Horária</a>
-          <a class="dropdown-item" href="#">Carga Alocação</a>
-          <a class="dropdown-item" href="#">Carga Disciplinas Habilitadas</a>
         </div>
       </li>
       <li class="nav-item">

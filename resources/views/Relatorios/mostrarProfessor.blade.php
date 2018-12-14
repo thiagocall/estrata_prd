@@ -21,11 +21,11 @@
               <div id="infoPessoal" class="collapse container" >
                 <div class="row">
                   <div class="col-md-6">
-                   <p><strong>Nascimento:</strong> {{date("d/m/Y", strtotime($matricula->Professor->DT_NASCIMENTO))}} ({{intval((strtotime(date("Y-m-d")) - strtotime($matricula->Professor->DT_NASCIMENTO))/86400/365.25)}} anos)</p>
+                   <p><strong>Nascimento:</strong> {{date("d/m/Y", strtotime($matricula->Professor->DT_NASCIMENTO))}}({{intval((strtotime(date("Y-m-d")) - strtotime($matricula->Professor->DT_NASCIMENTO))/86400/365.25)}} anos)</p>
                    <p><strong>Sexo:</strong> {{$matricula->Professor->SEXO}} </p>
                  </div>
                  <div class="col-md-6">
-                   <p><strong>Cidade de Nascimento: </strong> {{mb_convert_case($matricula->Professor->MUNICIPIO_NASC,MB_CASE_TITLE)}}</p>
+                   <p><strong>Cidade de Nascimento: </strong> {{mb_convert_case($matricula->Professor->MUNICIPIO_NASC,MB_CASE_TITLE) . "(" . $matricula->Professor->UF_NASC . ")"}}</p>
                    <p><strong>Cpf: </strong>{{$matricula->Professor->Cpf_Formatado() }}</p>
                  </div>
                </div>  
@@ -35,7 +35,6 @@
          </div>
        </div>
      </div>
-
      <div class="row">
        <div class="col-md-12">
         <div class="card mb-4 shadow-sm">
@@ -47,19 +46,23 @@
                   <div class="row">
                          <div class="col-md-4">
                           <p><strong>Tipo Salário: </strong> {{($matricula->IND_TIPO_SALARIO == 'H')? 'Horista' : 'Mensalista'}}</p>
-                            <p><strong>Hora Aula Composta: </strong> {{"R$ " . number_format($matricula->Hora_Aula->HORA_AULA_COMPOSTA, 2, ',','.')}} <button type="button" class="btn btn-outline-primary btn-sm pt-0 pb-0" data-toggle="modal" data-target="#conposicaoHoraAula"> <span data-toggle="tooltip" data-placement="top" title="Ver composição da hora/aula"> detalhes </span></button></p>
+                            @if(count($matricula->Hora_Aula))
+                              <p><strong>Hora Aula Composta: </strong> {{"R$ " . count($matricula->Hora_Aula) ? number_format($matricula->Hora_Aula->HORA_AULA_COMPOSTA, 2, ',','.') : "-"}} <button type="button" class="btn btn-outline-primary btn-sm pt-0 pb-0" data-toggle="modal" data-target="#conposicaoHoraAula"> <span data-toggle="tooltip" data-placement="top" title="Ver composição da hora/aula"> detalhes </span></button></p>
+                            @else
+                            <p><strong>Hora Aula Composta: </strong>R$ - </p>
+                            @endif
                             <p><strong>Admissão em: </strong>{{date("d/m/Y",strtotime($matricula->DT_ADMISSAO_PROFESSOR))}}</p>
                         </div>
                           <div class="col-md-4">
-                            <p><strong>Função: </strong> {{$matricula->Sindicato->NOME_FUNCAO}}</p>
+                            <p><strong>Função: </strong> {{count($matricula->Sindicato) ? $matricula->Sindicato->NOME_FUNCAO : "-"}}</p>
                           <p><strong>Tipo Contrato: </strong> {{($matricula->IND_TIPO_CONTRATO == 'F')? 'Funcionário' : 'Prest. Serviços'}}</p>
-                             <p><strong>IES: </strong>{{ucwords(mb_strtolower($matricula->Sindicato->NOME_EMPRESA))}}</p>
+                             <p><strong>IES: </strong>{{count($matricula->Hora_Aula) ? ucwords(mb_strtolower($matricula->Hora_Aula->IES)): "-"}}</p>
 
                           </div>
 
                           <div class="col-md-4">
                             <p><strong>Região Matrícula: </strong>{{mb_convert_case($matricula->NOM_REGIAO, MB_CASE_TITLE)}}</p>
-                              <p><strong>Sindicato: </strong>{{mb_convert_case($matricula->Sindicato->NOME_SINDICATO, MB_CASE_TITLE)}}</p>
+                              <p><strong >Sindicato: </strong><span data-toggle="tooltip" data-placement="top" title="{{count($matricula->Sindicato) ? $matricula->Sindicato->NOME_SINDICATO_FULL : ""}}">{{count($matricula->Sindicato) ? mb_convert_case($matricula->Sindicato->NOME_SINDICATO, MB_CASE_TITLE) : "-"}}</span></p>
                              
                           </div>
                   </div>
@@ -79,13 +82,21 @@
 
                   <div class="row">
                           <div class="col-md-4">
+                            @if(count($matricula->Professor->Titulacao))
                             <p><strong>Titulação SIA: </strong> {{ucwords(strtolower($matricula->Professor->Titulacao->TITULACAO))}}</p>
+                            @else
+                            <p><strong>Titulação SIA: </strong> - </p>
+                            @endif
                           </div>
                           <div class="col-md-4">
+                            @if(count($matricula->Professor->Titulacao_Lattes))
                             <p><strong>Titulação Lattes: </strong> {{ucwords(strtolower($matricula->Professor->Titulacao_Lattes->TITULACAO))}}</p>
+                            @else
+                            <p><strong>Titulação Lattes: </strong> - </p>
+                            @endif
                           </div>
                          <div class="col-md-4">
-                          <p><strong>Regime: </strong> {{ucwords(strtolower($matricula->Professor->Info->Regime_Ajustado))}} <button type="button" class="btn btn-outline-primary btn-sm pt-0 pb-0" data-toggle="modal" data-target="#composicaoRegime"> <span data-toggle="tooltip" data-placement="top" title="Ver composição do regime"> detalhes </span></button></p>
+                          <p><strong>Regime: </strong> {{ucwords(strtolower($matricula->Professor->Info->Regime_Ajustado))}}</p>
 
                         </div>
 
@@ -99,7 +110,7 @@
 
   <button class="btn btn-outline-primary" id="btn_fechar"  ">Fechar </button>
   <button class="btn btn-outline-primary" id="btn_expPDF" onclick = location.href='{{url("/detalhePDF/" . $matricula->NUM_MATRICULA)}}'>Exportar para PDF</button>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Ver Cursos</button>
+ <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#composicaoCH"> Ver Carga Horária do Professor </button>
 
   <!--<small class="text-muted">9 mins</small>-->
 
@@ -122,7 +133,9 @@
         </button>
       </div>
       <div class="modal-body">
+         @if(count($matricula->Hora_Aula))
         <div class="row">
+         
 
           <div class="col-md-2 text-center">
             <p><strong data-toggle="tooltip" data-placement="top" title="Hora/Aula + Dif. Individual">Hora/Aula</strong></p>
@@ -215,7 +228,10 @@
           </div>
           </div>
 
-  
+          @else
+          <div class="row">Sem informações de Hora Aula</div>
+          @endif
+      
 
       </div>
 
@@ -228,29 +244,47 @@
 <!------------>
 
 <!--detalhes Regime -->
-<div class="modal fade" id="composicaoRegime" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="composicaoCH" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Composição Regime</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Composição Carga Horária</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6">
 
-            <p><strong>Curso</strong></p>
-          </div>
-          <div class="col-md-6">
-            <p><strong>Campus</strong></p>
-          </div>
-        </div>
+          @if($matricula->Carga_DS != null)
+              <div class="col-md-4 text-center"> 
+                <p><strong>Campus</strong></p>
+                @foreach($matricula->CargaMes_DS() as $carga)
+                  <p>{{$carga->NOM_CAMPUS}}</p>
+                @endforeach
+              </div>
+              <div class="col-md-4  text-center">
+                <p><strong>Curso</strong></p>
+                  @foreach($matricula->CargaMes_DS() as $carga)
+                    <p>{{$carga->NOM_CURSO}}</p>
+                  @endforeach
+              </div>
+              <div class="col-md-4 text-center">
+                <p><strong>Carga Horária Semanal</strong></p>
+                  @foreach($matricula->CargaMes_DS() as $carga)
+                    <p>{{number_format($carga->Qtd_Horas_Mov/4.5, 2,',','.')}}</p>
+                  @endforeach
+              </div>
+
+              @else
+              <p>Não há dados de Carga Horária</p>
+              @endif
+            </div>
 
       </div>
-
+      <div class="container offset-9"><p><strong>Total DS: </strong> {{number_format($matricula->CargaMes_DS()->sum('Qtd_Horas_Mov')/4.5,2,',','.')}}</p></div>
       <div class="modal-footer">
+        
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
       </div>
     </div>

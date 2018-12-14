@@ -32,4 +32,24 @@ class Professor_Matricula extends Model
     }
 
 
+    public function Carga_DS()
+    {
+        return $this->hasMany('App\Matricula_Carga_DS', 'NUM_MATRICULA', 'NUM_MATRICULA');
+    }
+
+
+    public function CargaMes_DS()
+    {
+        
+        $maxMes = $this->Carga_DS->max('DT_MES_ANO_COMPETENCIA');
+
+        $carga = $this->Carga_DS
+                ->where('DT_MES_ANO_COMPETENCIA', '=', $maxMes);
+
+            return $carga;
+
+
+    }
+
+
 }

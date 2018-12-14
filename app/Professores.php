@@ -10,9 +10,7 @@ class Professores extends Model
     protected $primaryKey = 'CPF';
     //protected $fillable = [];
 
-
     public $timestamps=false;
-
 
     public function Cpf_Formatado()
     {
@@ -59,6 +57,8 @@ class Professores extends Model
         return $this->hasOne('App\Titulacao_Lattes', 'CPF', 'CPF');
 
     }
+
+
     
     
 

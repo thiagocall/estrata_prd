@@ -11,7 +11,7 @@ $(function(){
           var id_regional = $('#regional').val();
               $.ajax({
               type: "POST",
-              url: "{{route('getIES_Reg')}}",
+              url: "{{route('Professores.getIES_Reg')}}",
               data: {id_regional: id_regional},
               //dataType:'text',
               success: function(data){
@@ -27,7 +27,7 @@ $(function(){
           var id_ies = $('#ies').val();
               $.ajax({
               type: "POST",
-              url: "{{route('getCampus_IES')}}",
+              url: "{{route('Professores.getCampus_IES')}}",
               data: {id_ies: id_ies},
               //dataType:'text',
               success: function(data){
@@ -50,7 +50,7 @@ $(function(){
           $('#lista').html("<div class='container text-center' style='margin-top:15%'> <img src='../images/WaitCover.gif' class='rounded rounded-circle mx-auto d-block' width=5%> processando... </div>")
               $.ajax({
               type: "POST",
-              url: "{{route('lista_professor2')}}",
+              url: "{{route('Professores.lista_professor2')}}",
               data: {id_campus: id_campus, cpf: cpf_, id_ies: id_ies},
               success: function(data){
               $('#lista').html(data['corpo']);
@@ -135,10 +135,11 @@ $(function(){
 
               $.ajax({
               type: "POST",
-              url: "{{route('buscaProfessor2')}}",
+              url: "{{route('Consulta.buscaProfessor2')}}",
               data: {busca: busca},
               success: function(data){
                 $('#lista').html(data['corpo']);
+                console.log(data['teste']);
                 },
                 error: function(data){
                   $('#lista').html("<div class='alert alert-danger'>Ops! Erro na consulta</div>");

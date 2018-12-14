@@ -11,7 +11,7 @@ $(function(){
           var id_regional = $('#regional').val();
               $.ajax({
               type: "POST",
-              url: "{{url('getIES_Reg')}}",
+              url: "{{route('Professores.getIES_Reg')}}",
               data: {id_regional: id_regional},
               //dataType:'text',
               success: function(data){
@@ -26,7 +26,7 @@ $(function(){
           var id_ies = $('#ies').val();
               $.ajax({
               type: "POST",
-              url: "{{route('getCampus_IES')}}",
+              url: "{{route('Professores.getCampus_IES')}}",
               data: {id_ies: id_ies},
               //dataType:'text',
               success: function(data){
@@ -51,7 +51,7 @@ $(function(){
 
               $.ajax({
               type: "POST",
-              url: "{{route('resumoPorCampus')}}",
+              url: "{{route('Professores.resumoPorCampus')}}",
               data: {id_campus: id_campus, id_ativos: id_ativos},
               success: function(data){
                $('#myModal').modal('toggle');

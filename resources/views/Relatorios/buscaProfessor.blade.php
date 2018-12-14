@@ -7,7 +7,7 @@
   <div class="row" style="padding-left: 3%; padding-right: 3%; padding-top: 1%">
    
       <div class="col-md-3">
-        <label for="cpf"><strong>Busca Professor:</strong></label>
+        <label for="cpf"><strong>{{$menu}}</strong></label>
         <input type ="text" class="form-control" id="cpf" placeholder="Cpf, Matricula ou Nome...">
       </div>
 
